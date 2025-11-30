@@ -11,7 +11,7 @@ public class DatabaseContext
     public DatabaseContext()
     {
         // CAMBIA EL NOMBRE DEL ARCHIVO PARA FORZAR UNA BD NUEVA
-        _dbPath = Path.Combine(FileSystem.AppDataDirectory, "products_v3.db3");
+        _dbPath = Path.Combine(FileSystem.AppDataDirectory, "products_v4.db3");
     }
 
     private async Task InitializeAsync()
@@ -32,6 +32,7 @@ public class DatabaseContext
     public async Task<Product?> GetProductByIdAsync(int id)
     {
         await InitializeAsync();
+
         return await _database!.Table<Product>()
             .FirstOrDefaultAsync(p => p.Id == id);
     }

@@ -67,9 +67,19 @@
 
 	<ItemGroup>
 	  <Folder Include="Helpers\" />
-	  <Folder Include="Views\" />
-	  <Folder Include="ViewModels\" />
 	  <Folder Include="Services\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Views\ProductsListPage.xaml.cs">
+	    <DependentUpon>ProductsListPage.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Views\ProductsListPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 </Project>
