@@ -208,7 +208,7 @@
                                            FontAttributes="Bold" />
                                     </Border>
                                     <HorizontalStackLayout ></HorizontalStackLayout>
-                                    <Button Text="🗑️ Delete"
+                                    <!--<Button Text="🗑️ Delete"
                                         FontSize="12"
                                         BackgroundColor="#ff6b6b"
                                         TextColor="White"
@@ -216,7 +216,8 @@
                                         Padding="8,4"
                                         HorizontalOptions="Start"
                                         Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ProductsListViewModel}}, Path=DeleteProductCommand}"
-                                        CommandParameter="{Binding .}"></Button>
+                                        CommandParameter="{Binding .}">                                        
+                                    </Button>-->
                                 </VerticalStackLayout>
                             </Grid>
                         </Border>
