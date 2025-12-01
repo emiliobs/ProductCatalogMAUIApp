@@ -11,7 +11,7 @@ public class DatabaseContext
     public DatabaseContext()
     {
         // CAMBIA EL NOMBRE DEL ARCHIVO PARA FORZAR UNA BD NUEVA
-        _dbPath = Path.Combine(FileSystem.AppDataDirectory, "products_v4.db3");
+        _dbPath = Path.Combine(FileSystem.AppDataDirectory, "products_v5.db3");
     }
 
     private async Task InitializeAsync()

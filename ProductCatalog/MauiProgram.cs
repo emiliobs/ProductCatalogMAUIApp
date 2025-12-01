@@ -22,11 +22,13 @@ namespace ProductCatalog
             // Register Data Bases
             builder.Services.AddSingleton<DatabaseContext>();
 
-            //Register Register
+            //Register viewmodels
             builder.Services.AddTransient<ProductsListViewModel>();
+            builder.Services.AddTransient<ProductDetailViewModel>();
 
             // Regiters Views
             builder.Services.AddTransient<ProductsListPage>();
+            builder.Services.AddTransient<ProductDetailPage>();
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
