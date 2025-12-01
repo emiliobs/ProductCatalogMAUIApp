@@ -42,9 +42,9 @@ public class DatabaseContext
 
         var search = (searchText ?? string.Empty).ToLower();
 
-        return await _database!.Table<Product>().Where(p => (p.Name ?? "").ToLower().Contains(search) ||
-                                                (p.Category ?? "").ToLower().Contains(search))
-            .ToListAsync();
+        return await _database!.Table<Product>().Where(p => (p.Name != null && p.Name.ToLower()
+                     .Contains(search)) || (p.Category != null && p.Category.ToLower().Contains(search)))
+                     .ToListAsync();
     }
 
     public async Task<int> SaveProductAsync(Product product)

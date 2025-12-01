@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using ProductCatalog.Data;
 using ProductCatalog.Models;
+using ProductCatalog.Services;
 using ProductCatalog.ViewModels;
 using ProductCatalog.Views;
 
@@ -21,6 +22,9 @@ namespace ProductCatalog
 
             // Register Data Bases
             builder.Services.AddSingleton<DatabaseContext>();
+
+            //Register services
+            builder.Services.AddSingleton<ImageService>();
 
             //Register viewmodels
             builder.Services.AddTransient<ProductsListViewModel>();
