@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<ContentPage  xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:ProductCatalog.ViewModels"
+             x:Name="ProductsPage"
              xmlns:models="clr-namespace:ProductCatalog.Models"
              x:Class="ProductCatalog.Views.ProductsListPage"
              xmlns:helpers="clr-namespace:ProductCatalog.Helpers"
@@ -107,7 +108,7 @@
                                 <SwipeItem Text="Delete"
                                      IconImageSource="delete.png"
                                      BackgroundColor="#FF6B6B"
-                                     Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ProductsListViewModel}}, Path=DeleteProductCommand}"
+                                      Command="{Binding BindingContext.DeleteProductCommand, Source={x:Reference ProductsPage}}"
                                      CommandParameter="{Binding .}" />
                             </SwipeItems>
                         </SwipeView.RightItems>
@@ -124,7 +125,8 @@
 
                             <Border.GestureRecognizers>
                                 <TapGestureRecognizer
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ProductsListViewModel}}, Path=EditProductCommand}"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ProductsListViewModel}},
+                                    Path=EditProductCommand}"
                                     CommandParameter="{Binding .}" />
                             </Border.GestureRecognizers>
 
