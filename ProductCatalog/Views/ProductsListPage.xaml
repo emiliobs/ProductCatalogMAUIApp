@@ -4,6 +4,7 @@
              xmlns:vm="clr-namespace:ProductCatalog.ViewModels"
              xmlns:models="clr-namespace:ProductCatalog.Models"
              x:Class="ProductCatalog.Views.ProductsListPage"
+             xmlns:helpers="clr-namespace:ProductCatalog.Helpers"
              x:DataType="vm:ProductsListViewModel"
              Title="Product Catalog"
              BackgroundColor="#f5f7fa">
@@ -127,56 +128,85 @@
                                     CommandParameter="{Binding .}" />
                             </Border.GestureRecognizers>
 
-                            <VerticalStackLayout Spacing="8">
-                                <Label Text="{Binding Name}"
+                            <!--Product Image-->
+                            <Grid ColumnDefinitions="110,*">
+                                <Border Grid.Column="0"
+                                        WidthRequest="95"
+                                        HeightRequest="95"
+                                        BackgroundColor="#f0f0f0"
+                                        StrokeThickness="0">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="12">
+                                        </RoundRectangle>
+                                    </Border.StrokeShape>
+
+                                    <Image Aspect="AspectFill"
+                                        IsVisible="{Binding HasImage}">
+                                        <Image.Source>
+                                            <FileImageSource File="{Binding ImagePath}" />
+                                        </Image.Source>
+                                    </Image>
+
+                                    <!--<Label Text="📷"
+                                         FontSize="40"
+                                         HorizontalOptions="Center"
+                                         VerticalOptions="Center"
+                                         TextColor="#BDC3C7"
+                                        IsVisible="{Binding HasImage, Converter={StaticResource InverseBoolConverter}}">
+                                    </Label>-->
+                                </Border>
+
+                                <VerticalStackLayout Grid.Column="1"  Spacing="6">
+                                    <Label Text="{Binding Name}"
                                        FontSize="18"
                                        FontAttributes="Bold"
                                        TextColor="#2D3436" />
 
-                                <Label Text="{Binding Description}"
+                                    <Label Text="{Binding Description}"
                                        FontSize="14"
                                        TextColor="#636E72"
                                        LineBreakMode="TailTruncation"
                                        MaxLines="2"
                                        IsVisible="{Binding Description, Converter={StaticResource StringNotEmptyConverter}}" />
 
-                                <Grid ColumnDefinitions="Auto,*">
-                                    <Label Grid.Column="0"
+                                    <Grid ColumnDefinitions="Auto,*">
+                                        <Label Grid.Column="0"
                                            FontSize="20"
                                            FontAttributes="Bold"
                                            TextColor="#27AE60">
-                                        <Label.Text>
-                                            <Binding Path="Price" StringFormat="${0:N2}" />
-                                        </Label.Text>
-                                    </Label>
+                                            <Label.Text>
+                                                <Binding Path="Price" StringFormat="${0:N2}" />
+                                            </Label.Text>
+                                        </Label>
 
-                                    <HorizontalStackLayout Grid.Column="1"
-                                                           HorizontalOptions="End"
-                                                           Spacing="8">
-                                        <Label Text="📦" FontSize="14" VerticalOptions="Center" />
-                                        <Label Text="{Binding Stock}"
+                                        <HorizontalStackLayout Grid.Column="1" HorizontalOptions="End" Spacing="8">
+                                            <Label Text="📦"
+                                               FontSize="14"
+                                               VerticalOptions="Center">
+                                            </Label>
+                                            <Label Text="{Binding Stock}"
                                                FontSize="14"
                                                FontAttributes="Bold"
                                                TextColor="#2D3436"
                                                VerticalOptions="Center" />
-                                    </HorizontalStackLayout>
-                                </Grid>
+                                        </HorizontalStackLayout>
+                                    </Grid>
 
-                                <Border Padding="8,4"
+                                    <Border Padding="8,4"
                                         BackgroundColor="#E8F4F8"
                                         HorizontalOptions="Start"
                                         StrokeThickness="0">
-                                    <Border.StrokeShape>
-                                        <RoundRectangle CornerRadius="8" />
-                                    </Border.StrokeShape>
+                                        <Border.StrokeShape>
+                                            <RoundRectangle CornerRadius="8" />
+                                        </Border.StrokeShape>
 
-                                    <Label Text="{Binding Category}"
+                                        <Label Text="{Binding Category}"
                                            FontSize="12"
                                            TextColor="#3498DB"
                                            FontAttributes="Bold" />
-                                </Border>
-                                <HorizontalStackLayout ></HorizontalStackLayout>
-                                <Button Text="🗑️ Delete"
+                                    </Border>
+                                    <HorizontalStackLayout ></HorizontalStackLayout>
+                                    <Button Text="🗑️ Delete"
                                         FontSize="12"
                                         BackgroundColor="#ff6b6b"
                                         TextColor="White"
@@ -185,7 +215,8 @@
                                         HorizontalOptions="Start"
                                         Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ProductsListViewModel}}, Path=DeleteProductCommand}"
                                         CommandParameter="{Binding .}"></Button>
-                            </VerticalStackLayout>
+                                </VerticalStackLayout>
+                            </Grid>
                         </Border>
                     </SwipeView>
                 </DataTemplate>
@@ -220,7 +251,7 @@
                    Margin="0,-4,0,0" />
         </Border>
 
-        <!-- Loading -->
+        <!-- Loading  oVerlay-->
         <Grid Grid.Row="0" Grid.RowSpan="2"
               IsVisible="{Binding IsLoading}"
               BackgroundColor="#80000000">

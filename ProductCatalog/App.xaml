@@ -11,7 +11,11 @@
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            <helpers:StringNotEmptyConverter x:Key="StringNotEmptyConverter" />
+            <!-- Register Converters -->
+            <helpers:StringNotEmptyConverter x:Key="StringNotEmptyConverter"/>
+            <helpers:IsNotNullConverter x:Key="IsNotNullConverter"/>
+            <helpers:IsNullConverter x:Key="IsNullConverter"/>
+            <helpers:InverseBoolConverter x:Key="InverseBoolConverter"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
