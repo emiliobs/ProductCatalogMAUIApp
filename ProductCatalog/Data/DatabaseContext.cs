@@ -11,7 +11,7 @@ public class DatabaseContext
     public DatabaseContext()
     {
         // CAMBIA EL NOMBRE DEL ARCHIVO PARA FORZAR UNA BD NUEVA
-        _dbPath = Path.Combine(FileSystem.AppDataDirectory, "products_v5.db3");
+        _dbPath = Path.Combine(FileSystem.AppDataDirectory, "products_v6.db3");
     }
 
     private async Task InitializeAsync()
@@ -33,8 +33,7 @@ public class DatabaseContext
     {
         await InitializeAsync();
 
-        return await _database!.Table<Product>()
-            .FirstOrDefaultAsync(p => p.Id == id);
+        return await _database!.Table<Product>().FirstOrDefaultAsync(p => p.Id == id);
     }
 
     public async Task<List<Product>> SearchProductsAsync(string searchText)
@@ -43,9 +42,8 @@ public class DatabaseContext
 
         var search = (searchText ?? string.Empty).ToLower();
 
-        return await _database!.Table<Product>()
-            .Where(p => (p.Name ?? "").ToLower().Contains(search) ||
-                        (p.Category ?? "").ToLower().Contains(search))
+        return await _database!.Table<Product>().Where(p => (p.Name ?? "").ToLower().Contains(search) ||
+                                                (p.Category ?? "").ToLower().Contains(search))
             .ToListAsync();
     }
 
@@ -72,16 +70,12 @@ public class DatabaseContext
     public async Task<List<Product>> GetProductsByCategoryAsync(string category)
     {
         await InitializeAsync();
-        return await _database!.Table<Product>()
-            .Where(p => p.Category == category)
-            .ToListAsync();
+        return await _database!.Table<Product>().Where(p => p.Category == category).ToListAsync();
     }
 
     public async Task<List<Product>> GetLowStockProductsAsync(int minimumStock = 5)
     {
         await InitializeAsync();
-        return await _database!.Table<Product>()
-            .Where(p => p.Stock <= minimumStock)
-            .ToListAsync();
+        return await _database!.Table<Product>().Where(p => p.Stock <= minimumStock).ToListAsync();
     }
 }

@@ -20,10 +20,13 @@ public partial class ProductsListViewModel : ObservableObject
     [ObservableProperty]
     private bool isLoading;
 
+    [ObservableProperty]
+    private string searchText = string.Empty;
+
     public ProductsListViewModel(DatabaseContext database)
     {
         this._database = database;
-        AddSampleProductsAsync();
+        //AddSampleProductsAsync();
     }
 
     [RelayCommand]
@@ -34,10 +37,10 @@ public partial class ProductsListViewModel : ObservableObject
             IsLoading = true;
             var prodcutList = await _database.GetAllProductsAsync();
 
-            products.Clear();
+            Products.Clear();
             foreach (var product in prodcutList)
             {
-                products.Add(product);
+                Products.Add(product);
             }
         }
         catch (Exception ex)
@@ -54,6 +57,42 @@ public partial class ProductsListViewModel : ObservableObject
     private async Task AddProductAsync()
     {
         await Shell.Current.GoToAsync("ProductDetailPage");
+    }
+
+    [RelayCommand]
+    private async Task SearchProductsAsync()
+    {
+        try
+        {
+            IsLoading = true;
+
+            List<Product> result;
+
+            // If search is empty, get all products
+            if (string.IsNullOrWhiteSpace(SearchText))
+            {
+                result = await _database.GetAllProductsAsync();
+            }
+            else
+            {
+                result = await _database.SearchProductsAsync(SearchText);
+            }
+
+            // Update collection
+            Products.Clear();
+            foreach (var product in result)
+            {
+                Products.Add(product);
+            }
+        }
+        catch (Exception ex)
+        {
+            await Shell.Current.DisplayAlertAsync("Error", $"Searching products: {ex.Message}", "OK");
+        }
+        finally
+        {
+            IsLoading = false;
+        }
     }
 
     [RelayCommand]
